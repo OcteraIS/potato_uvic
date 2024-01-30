@@ -1,0 +1,23 @@
+python potato/flask_server.py start project-hub/offensiveness/configs/offensiveness.yaml -p 8000
+python potato/flask_server.py start project-hub/politeness_rating/configs/politeness.yaml -p 8000
+
+source bin/activate
+
+python potato/flask_server.py start project-hub/topic_interpretation_test/configs/topic_interpretation.yaml -p 8000
+
+
+python potato/flask_server.py start project-hub/simple_examples/configs/simple-slider.yaml -p 8000
+
+
+virtualenv --no-download --clear PotatoENV 
+
+source PotatoENV/bin/activate
+
+
+python3 potato/flask_server.py start project-hub/topic_interpretation_test/configs/topic_interpretation.yaml -p 8000
+
+
+python potato/flask_server.py start C:\RS\Topic_Interpretation\potato-master\potato-master\project-hub\q_method_test\configs\q_method_test.yaml -p 8000
+
+
+python potato/flask_server.py start C:\RS\Topic_Interpretation\potato-master\potato-master_v3\project-hub\topic_interpretation_acl\configs\topic_interpretation_acl.yaml --port 8000

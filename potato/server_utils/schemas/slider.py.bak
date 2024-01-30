@@ -1,0 +1,22 @@
+"""
+slider Layout
+"""
+
+from .radio import generate_radio_layout
+
+
+def generate_slider_layout(annotation_scheme):
+
+    for required in ["min_value", "max_value", "default_value"]:
+        if required not in annotation_scheme:
+            raise Exception(
+                'slider scale for "%s" did not include %s' % (annotation_scheme["name"], required)
+            )
+
+    schematic = (
+        '<div><form action="/action_page.php">'
+        + '  <fieldset> <strong>%s</strong> <input type="range" min="%d" max="%d" value="%d" class="slider"> </fieldset>\n</form></div>\n'
+    #) % (annotation_scheme["description"], annotation_scheme["min_value"], annotation_scheme["max_value"], annotation_scheme["default_value"])
+    ) % (annotation_scheme["description"], 1, 100, 50)
+
+    return schematic, []

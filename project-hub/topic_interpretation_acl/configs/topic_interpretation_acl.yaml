@@ -1,0 +1,333 @@
+{
+    "port": 9001,
+
+    "server_name": "potato annotator",
+
+    "annotation_task_name": "Topic Interpretation ACL",
+
+    # "annotation_task_name": "Match findings (Biology)",
+
+    # Potato will write the annotation file for all annotations to this
+    # directory, as well as per-annotator output files and state information
+    # necessary to restart annotation.
+    "output_annotation_dir": "annotation_output/output_topic_interpretation_acl/",
+
+    # The output format for the all-annotator data. Allowed formats are:
+    # * jsonl
+    # * json (same output as jsonl)
+    # * csv
+    # * tsv
+    #
+    "output_annotation_format": "jsonl",
+
+    # If annotators are using a codebook, this will be linked at the top to the
+    # instance for easy access
+    "annotation_codebook_url": "",
+
+    "data_files": [
+        "data_files/ACL_OCL_topics.json"
+    ],
+    
+    "item_properties": {
+        "id_key": "id",
+        "text_key": "text",
+        "context_key": "context",
+    },
+
+    "user_config": {
+
+      "allow_all_users": True,
+
+      "users": [  ],
+    },
+    
+    "alert_time_each_instance": 900,
+    # defining the ways annotators entering the annotation system
+    "login": {
+       "type": 'password',    #can be 'password' or 'url_direct'
+       "url_argument": 'PROLIFIC_PID' # when the login type is set to 'url_direct', 'url_argument' must be setup for a direct url argument login
+    },
+    #the jumping-to-id function will be disabled if "jumping_to_id_disabled" is True
+    "jumping_to_id_disabled": True,
+
+    #the navigation bar will be hidden to the annotators if "hide_navbar" is True
+    "hide_navbar": True,
+
+    # define the surveyflow of the system, set up the pages before and after the data annotation page
+    "surveyflow": {
+      "on": True,
+      #"order" : ['pre_annotation', 'prestudy_passed', 'prestudy_failed', 'post_annotation'],
+      "order" : ['pre_annotation', 'post_annotation'],
+      "pre_annotation": ['surveyflow/intro.jsonl', 'surveyflow/instruction.jsonl', 'surveyflow/consent.jsonl'],
+      "prestudy_passed": ['surveyflow/prestudy_pass.jsonl'],
+      "prestudy_failed": ['surveyflow/prestudy_fail.jsonl'],
+     # "post_annotation": ['surveyflow/experience.jsonl', 'surveyflow/end.jsonl'],
+       "post_annotation": ['surveyflow/end.jsonl'],
+      # If set, we will automatically generate testing questions similar to the annotation instances, but explicitly ask the annotator to choose one option
+      "testing": [],
+    },
+    
+    #prestudy test, annotators who fail this test will be disallowed to continue annotation
+    "prestudy": {
+        "on": False,
+        "minimum_score": 0.8,
+        "groundtruth_key": 'whether_match',
+        "question_key": 'Whether the presented sentences are discussing the same scientific finding',
+        "answer_mapping": {'Yes': True, 'No': False},
+        "pass_page": 'surveyflow/prestudy_pass.jsonl',
+        "fail_page": 'surveyflow/prestudy_fail.jsonl'
+    },
+
+
+    "automatic_assignment": {
+      #whether do automatic task assignment for annotators, default False.
+      "on": True,
+      "output_filename": 'task_assignment.json',
+      "sampling_strategy": 'random',
+      "labels_per_instance": 5,
+      "instance_per_annotator": 5,
+      "test_question_per_annotator": 0, # you must set up the test question in surveyflow to use this function
+
+      "users": [  ],
+    },
+
+
+    # How many seconds do you want the annotators spend on each instance, after
+    # that, an alert will be sent per alert_time_each_instance seconds.
+    "alert_time_each_instance": 10000000,
+    "horizontal_key_bindings": true,
+
+    "annotation_schemes": [
+       {
+        "annotation_type": "pure_display",
+        "description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of 0 to 100, with 0 indicating \"Strong Disagreement\" and 100 indicating \"Strong Agreement\"",
+        "labels": ""
+       },
+      {
+        "annotation_type": "slider",
+        "name": "S1",
+        "description": "I know these words",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+     {
+        "annotation_type": "slider",
+        "name": "S2",
+        "description": "There is no jargon in this topic; even a novice can understand this topic",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S3",
+        "description": "I can infer the situation and context in which these words are mentioned",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S4",
+        "description": "The words of this topic have a connected meaning",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S5",
+        "description": "There are multiple possible relations between these words",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S6",
+        "description": "I need to see the relevant documents to know what the topic is about",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S7",
+        "description": "I can quickly find a Wikipedia article to help someone understand this topic",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      }, 
+      {
+        "annotation_type": "text",
+        "name": "Topic_label",
+        "label_requirement": { "required": True },
+        "description_old": "Please provide for a label for the topic: The label should represent the least common denominator (LCD) meaning of the words",
+        "description": "Please provide for a label for the topic",
+        "textarea": {
+              "on": True,
+              "rows": 1,
+              "cols": 75
+        }
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S8",
+        "description": "This topic is easy to label",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+     {
+        "annotation_type": "slider",
+        "name": "S9",
+        "description": "If I see this topic after a period of time, I don’t think my label would change",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S10",
+        "description": "Others will have similar interpretations",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S11",
+        "old_description": "There is a high chance that I have seen this topic in documents I work with",
+        "description": "There is a high chance that I have seen documents related to this topic",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S12",
+        "description": "I will arrive at the same interpretation, even if the order of words is shuffled",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S13",
+        "description": "This topic can be divided into subtopics for better understanding",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S14",
+        "description": "All or most of the words play a role in arriving at the interpretation",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": -1,
+        "sequential_key_binding": True,
+      },      
+      {
+        "annotation_type": "text",
+        "name": "Topic_Rationale",
+        "label_requirement": { "required": True },
+        "description": "Please provide a detailed rationale behind your inputs<br>Please mention the words that you found important while making the decisions<br>Please explain the situation and context in which these words are likely to be discussed",
+        "textarea": {
+              "on": True,
+              "rows": 7,
+              "cols": 75
+        }
+      }      
+    ],
+    # The html that changes the visualiztation for your task. Change this file
+    # to influence the layout and description of your task. This is not a full
+    # HTML page, just the piece that does lays out your task's pieces
+    #"html_layout": "templates/examples/fixed_keybinding_layout.html",
+    "html_layout": "default",
+
+    # The core UI files for Potato. You should not need to change these normally.
+    #
+    # Exceptions to this might include:
+    # 1) You want to add custom CSS/fonts to style your task
+    # 2) Your layout requires additional JS/assets to render
+    # 3) You want to support additional keybinding magic
+    #
+    # if you want to use your own template,
+    # please replace the string as a path to the template
+    "base_html_template": "default",
+    "header_file": "default",
+
+    # This is where the actual HTML files will be generated
+    "site_dir": "default"
+}
