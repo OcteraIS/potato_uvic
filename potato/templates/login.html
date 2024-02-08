@@ -246,61 +246,9 @@
 
     // Display error message when registration failed
 
-    </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-
-    <!-- Add your modal box styles here -->
-    <style>
-        /* Add your modal box styles here */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 400px;
-            max-height: 500px;
-            overflow-y: auto;
-            margin: 0 auto;
-        }
-
-        /* Style for the title */
-        .modal-content h2 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        /* Style for the title */
-        .modal-content p {
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-
-        /* Style for the button */
-        .button {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>    
+    </script>    
   </head>
-
+  
   <body>
     <div class="limiter">
       <div class="container-login100">
@@ -474,39 +422,6 @@
       </div>
     </div>
 
-    <!-- Modal box -->
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-          <h2>Research Study: Interpretation of Topics</h2>
-          <p>
-            <Strong>Overview:</Strong>
-            There is an exponential growth of digitized human knowledge in the form of books, news, scientific articles, social media posts, and discussions in a community of practice. Probabilistic topic models, a suite of algorithms facilitate access to such knowledge sources. These algorithms use the statistical properties of words to discover a set of topics in texts without any prior annotations. Latent Dirichlet Allocation  (LDA) is a simple topic model.
-            <br>
-              <Strong>Aim:</Strong>
-              <p style="color:blue;">Interpretation of topics is crucial for downstream applications of topic models. This study aims to characterize rationales of how users interpret topics.</p>
-            <br>
-          </p>
-          
-          <!-- Add your modal box content and buttons here -->
-          <button class="button" onclick="closeModal()">Yes, I know</button>
-      </div>
-    </div>
-
-    <!-- Add your modal box script here -->
-    <script>
-        // Show the modal box when the page is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
-        });
-
-        // Function to close the modal box
-        function closeModal() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'none';
-        }
-    </script>
-
     <script src="{{ url_for('static',filename='jquery-3.js') }}"></script>
     <script src="{{ url_for('static',filename='popper.js') }}"></script>
     <script src="{{ url_for('static',filename='bootstrap.js') }}"></script>
@@ -524,5 +439,6 @@
 
     <script src="{{ url_for('static',filename='main.js') }}"></script>
     <!-- <script defer="defer" src="beacon.js" data-cf-beacon="{&quot;rayId&quot;:&quot;661ee9948aa12d64&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2021.5.2&quot;,&quot;si&quot;:10}"></script> -->
+
 
 </body></html>
