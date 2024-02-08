@@ -20,4 +20,4 @@ python3 potato/flask_server.py start project-hub/topic_interpretation_test/confi
 python potato/flask_server.py start C:\RS\Topic_Interpretation\potato-master\potato-master\project-hub\q_method_test\configs\q_method_test.yaml -p 8000
 
 
-python potato/flask_server.py start C:\RS\Topic_Interpretation\potato-master\potato-master_v3\project-hub\topic_interpretation_acl\configs\topic_interpretation_acl.yaml --port 8000
+python potato/flask_server.py start C:\RS\Topic_Interpretation\potato-master\potato_uvic\project-hub\topic_interpretation_acl\configs\topic_interpretation_acl.yaml --port 8000

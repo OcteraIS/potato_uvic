@@ -818,8 +818,7 @@
   </div>
   <div class="col-md-9">
     <div style="flex-direction:column;">
-      <Strong>In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of 0 to 100, with 0 indicating "Strong Disagreement" and 100 indicating "Strong Agreement"</Strong> 
-<div><form action="/action_page.php">  <fieldset> <strong>I know these words</strong><br/>   <center><span style="flex:1;">Strongly disagree</span>  <input style="position:auto;" type="range" min="-1" max="100" value="-1" class="slider" name="slider:::S1" id="slider:::S1" required oninput="updateSliderValue(this)" style="text-align: center;width: 500px;margin:0 auto" validation="required" checked="TRUE">  <span style="flex:1;">Strongly agree</span>  <right>[<span id="sliderValue_slider:::S1" class="slider" validation="required" type="range"></span>]</fieldset>
+      <div><form action="/action_page.php">  <fieldset> <strong>I know these words</strong><br/>   <center><span style="flex:1;">Strongly disagree</span>  <input style="position:auto;" type="range" min="-1" max="100" value="-1" class="slider" name="slider:::S1" id="slider:::S1" required oninput="updateSliderValue(this)" style="text-align: center;width: 500px;margin:0 auto" validation="required" checked="TRUE">  <span style="flex:1;">Strongly agree</span>  <right>[<span id="sliderValue_slider:::S1" class="slider" validation="required" type="range"></span>]</fieldset>
 </form></div><br/>
 <script>    document.addEventListener("DOMContentLoaded", function() {        updateSliderValue(document.getElementById("slider:::S1"));    });    function updateSliderValue(slider) {        document.getElementById("sliderValue_" + slider.id).innerHTML = slider.value;        slider.addEventListener("input", function() {            document.getElementById("sliderValue_" + slider.id).innerHTML = slider.value;        });        console.log(document.getElementById("sliderValue_" + slider.id).innerHTML);    }</script>
 <div><form action="/action_page.php">  <fieldset> <strong>There is no jargon in this topic; even a novice can understand this topic</strong><br/>   <center><span style="flex:1;">Strongly disagree</span>  <input style="position:auto;" type="range" min="-1" max="100" value="-1" class="slider" name="slider:::S2" id="slider:::S2" required oninput="updateSliderValue(this)" style="text-align: center;width: 500px;margin:0 auto" validation="required" checked="TRUE">  <span style="flex:1;">Strongly agree</span>  <right>[<span id="sliderValue_slider:::S2" class="slider" validation="required" type="range"></span>]</fieldset>
@@ -890,7 +889,7 @@
       <footer>
         <div class="row">
           <div class="col-md-6">
-            <p>Copyright &copy; 2023 <a href="https://github.com/OcteraIs">Octera Research Group</a> </p>
+            <p>Copyright &copy; 2024 <a href="https://github.com/OcteraIs">Octera Research Group</a> </p>
           </div>
           <div class="col-md-12 text-md-right">
             <a href="https://github.com/davidjurgens/potato" class="text-dark">Fork on GitHub</a>
