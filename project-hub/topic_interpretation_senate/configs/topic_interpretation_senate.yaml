@@ -98,12 +98,12 @@
     "horizontal_key_bindings": true,
 
     "annotation_schemes": [
-       {
-        "annotation_type": "pure_display",
-        "old_description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of 0 to 100, with 0 indicating \"Strong Disagreement\" and 100 indicating \"Strong Agreement\"",
-        "description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of \"Strong Disagreement\" to \"Strong Agreement\"",
-        "labels": ""
-       },
+      #  {
+      #   "annotation_type": "pure_display",
+      #   "old_description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of 0 to 100, with 0 indicating \"Strong Disagreement\" and 100 indicating \"Strong Agreement\"",
+      #   "description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of \"Strong Disagreement\" to \"Strong Agreement\"",
+      #   "labels": ""
+      #  },
       {
         "annotation_type": "slider",
         "name": "S1",

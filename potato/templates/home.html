@@ -502,8 +502,11 @@
     <script>
         // Show the modal box when the page is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
+          var show_modal = {{ show_modal|tojson|safe }};
+          if (show_modal) {
+              var modal = document.getElementById('myModal');
+              modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
+          }
         });
 
         // Function to close the modal box

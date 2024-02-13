@@ -1134,9 +1134,10 @@ def login():
             title=config["annotation_task_name"],
             login_email=username,
             login_error="Invalid username or password",
+            show_modal=False
         )
     print("unknown action at login page")
-    return render_template("login.html", title=config["annotation_task_name"])
+    return render_template("login.html", title=config["annotation_task_name"], show_modal=False)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -1161,10 +1162,9 @@ def signup():
         if result == "Success":
             user_config.save_user_config()
             return render_template(
-                "home.html",
+                "login.html",
                 title=config["annotation_task_name"],
                 login_email=username,
-                login_error="User registration success for " + username + ", please login now",
                 show_modal=True
             )
         elif result == 'Unauthorized user':
@@ -1172,6 +1172,7 @@ def signup():
                 "login.html",
                 title=config["annotation_task_name"],
                 login_error=result + ", please contact your admin",
+                show_modal=False
             )
 
         # TODO: return to the signup page and display error message
@@ -1179,6 +1180,7 @@ def signup():
             "login.html",
             title=config["annotation_task_name"],
             login_error=result + ", please try again or log in",
+            show_modal=False
         )
 
     print("unknown action at home page")
@@ -1187,6 +1189,7 @@ def signup():
         title=config["annotation_task_name"],
         login_email=username,
         login_error="Invalid username or password",
+        show_modal=False
     )
     
 @app.route("/delete_account", methods=["POST"])
@@ -1207,12 +1210,14 @@ def delete_account():
             title=config["annotation_task_name"],
             login_email=username,
             login_error="Account successfully deleted",
+            show_modal=False
         )
     else:
         return render_template(
             "deleteAccount.html",
             title=config["annotation_task_name"],
             delete_error="Invalid username or password. Account deletion failed.",
+            show_modal=False
         )
 
 @app.route("/delete_account_page")
