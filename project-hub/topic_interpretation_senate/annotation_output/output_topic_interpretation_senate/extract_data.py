@@ -10,7 +10,7 @@ def extract_slider_values(json_obj):
     return [slider_values.get(f"S{i}", "") for i in range(1, 15)]
 
 input_jsonl_path = 'project-hub/topic_interpretation_senate/annotation_output/output_topic_interpretation_senate/annotated_instances.jsonl'
-output_csv_path = '/Users/shiyuzeng/Desktop/data.csv'
+output_csv_path = '' # Edit this address to save the output csv file
 
 with jsonlines.open(input_jsonl_path) as jsonl_file, open(output_csv_path, 'w', newline='') as csv_file:
     csv_writer = csv.writer(csv_file)
