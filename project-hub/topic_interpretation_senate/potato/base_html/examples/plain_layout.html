@@ -2,7 +2,8 @@
   <div class="col-md-3">
               {% if instance_obj.id|int > 3 %}
 <center><strong>The most probable <br> words of topic #{{instance_obj.id}}</strong></center>
-       <div name="context_text" class="instance">	   
+       <!--- <div name="context_text" class="instance" style="position: fixed;">	   --->
+	   <div name="context_text" class="instance">	   
           <div name="instance_text">
             {{instance | safe}}
           </div>

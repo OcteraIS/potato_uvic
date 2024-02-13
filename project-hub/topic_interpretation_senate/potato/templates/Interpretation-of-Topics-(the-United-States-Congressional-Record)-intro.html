@@ -432,13 +432,13 @@
           // Gacky code to simulate the submit button as a keyboard event
           // and not have two separate paths to handle keyboard and mouse
           // events
-          var sliders = document.querySelectorAll('input[type="range"]');
-          for (var i = 0; i < sliders.length; ++i) {
-              if (sliders[i].value == -1) {
-                  alert("Please make changes to the slider '" + sliders[i].name + "' before proceeding.");
-                  return false;
-              }
-          }
+          //var sliders = document.querySelectorAll('input[type="range"]');
+          //for (var i = 0; i < sliders.length; ++i) {
+          //    if (sliders[i].value == -1) {
+          //       alert("Please make changes to the slider '" + sliders[i].name + "' before proceeding.");
+          //        return false;
+          //    }
+          //}
           var e = $.Event('keyup');
           e.key = "ArrowRight";
           
@@ -453,7 +453,25 @@
           e.key = "ArrowLeft";
           
           get_new_instance(e);
-      } 
+      }
+
+      function click_to_leave() {
+        // Display a confirmation dialog
+        var confirmLeave = window.confirm("Are you sure you want to exit the survey?");
+
+        if (confirmLeave) {
+            // If the user confirms, ask if they want to delete their account
+            var confirmDelete = window.confirm("Do you want to delete your account?");
+
+            if (confirmDelete) {
+                // If the user wants to delete, redirect to the delete account page
+                window.location.href = "/delete_account_page";
+            } else {
+                // If the user doesn't want to delete, redirect to the home page or any other page
+                window.location.href = "/";
+            }
+        }
+      }
       
     </script>
     
@@ -768,12 +786,13 @@
             <a role="button" href="#" class="nav-item nav-link openbtn" target_id="Statpanel" width = "475px" onclick="openNav(this.getAttribute('target_id'),this.getAttribute('width'))">Statistics</a>
             <a role="button" href="#" class="nav-item nav-link openbtn" target_id="mySidepanel" onclick="openNav(this.getAttribute('target_id'))">Help</a>
           </div>
-          <div class="p-2 bd-highlight text-secondary align-middle">
+          <!--- <div class="p-2 bd-highlight text-secondary align-middle">
             Finished {{finished}}/{{total_count}}
           </div>
           <div class="p-2 bd-highlight text-secondary align-middle">
             Current_id {{instance_id}}
           </div>
+		   --->
           <div class="p-2 bd-highlight text-secondary align-middle">
             <form action="/annotate" method="post">
               <fieldset>
@@ -800,7 +819,8 @@
   <div class="col-md-3">
               {% if instance_obj.id|int > 3 %}
 <center><strong>The most probable <br> words of topic #{{instance_obj.id}}</strong></center>
-       <div name="context_text" class="instance">	   
+       <!--- <div name="context_text" class="instance" style="position: fixed;">	   --->
+	   <div name="context_text" class="instance">	   
           <div name="instance_text">
             {{instance | safe}}
           </div>
@@ -819,9 +839,9 @@
   <div class="col-md-9">
     <div style="flex-direction:column;">
       <Strong>Overview:</Strong> There is an exponential growth of digitized human knowledge in the form of books, news, scientific articles, social media posts, and discussions in a community of practice. Probabilistic topic models, a suite of algorithms facilitate access to such knowledge sources. These algorithms use the statistical properties of words to discover a set of topics in texts without any prior annotations. Latent Dirichlet Allocation  (LDA) is a simple topic model. Loosely, LDA makes the following two assumptions: <ul><li> Words that frequently co-occur with each other are related to the same subject. Such clusters of co-occurring words are considered as "topics". A topic is modeled as a distribution over words such that the most probable words of a topic are likely to be semantically related to each other</li> <li> Each document in the corpus exhibits the topics to varying degrees. A document is modeled as a distribution over the topics.</li></ul> A user can extract the gist of the most probable words to interpret and label what the topic is "about". If we know how a document exhibits each topic, then we can infer what the document is "about". If the topics are interpretable, they can be used to organize, navigate, and explore unstructured document corpora.<br>
-<Strong>Aim:</Strong> <p style="color:blue;">Interpretation of topics is crucial for downstream applications of topic models. This study aims to characterize rationales of how users interpret topics.</p><br>
+<Strong>Aim:</Strong> <p style="color:blue;">Interpretation of topics is crucial for downstream applications of topic models. This study aims to characterize rationales of how users interpret topics. This study will help to understand the interplay between human knowledge and human interpretation of topics.</p><br>
 <Strong>Risks:</Strong> There are no known or anticipated risks to you by participating in this research.<br>
-<Strong>Benefits:</Strong> This study will help to understand the interplay between human knowledge and human interpretation of topics.<br>
+<Strong>Benefits:</Strong> You will be paid XXX for participation in this study.<br>
 <Strong>Confidentiality:</Strong> Your confidentiality and the confidentiality of the data will be protected by data being in a password-protected computer in our offices at the University of Victoria or on UVic servers.<br>
 <Strong>Voluntary Participation:</Strong> Your participation in this research must be completely voluntary. If you do decide to participate, you may withdraw at any time without any consequences or any explanation.<br> You can withdraw from the study by using "Exit" option at the bottom of the page.<br> If you do withdraw from the study, your data will only be used in the research only with your agreement. Otherwise, your data will be destroyed.<br>
 <Strong>Anonymity:</Strong> In terms of protecting your anonymity, the researchers will be the only people who have access to this information. We will not inform others whether you choose to participate in this study or not.<br>
@@ -842,6 +862,9 @@
             <a class="btn btn-secondary" href="#" role="button" onclick="click_to_prev()" hidden>Move backward</a>
             <a class="btn btn-secondary" href="#" role="button" onclick="click_to_next()">Move forward</a>
           </div>
+          <div class="text-right">
+            <a class="btn btn-secondary" href="#" role="button" onclick="click_to_leave()">Exit Survey</a>
+          </div>
         </p>        
       </div>
 
@@ -849,7 +872,7 @@
       <footer>
         <div class="row">
           <div class="col-md-6">
-            <p>Copyright &copy; 2023 <a href="https://github.com/OcteraIs">Octera Research Group</a> </p>
+            <p>Copyright &copy; 2024 <a href="https://github.com/OcteraIs">Octera Research Group</a> </p>
           </div>
           <div class="col-md-12 text-md-right">
             <a href="https://github.com/davidjurgens/potato" class="text-dark">Fork on GitHub</a>

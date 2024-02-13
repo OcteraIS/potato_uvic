@@ -3,7 +3,252 @@
 
   <!--- HEADER GOES BELOW HERE--->
 
-  {{ HEADER }}
+  
+    <head>
+      <!-- <script src="jquery-3.3.1.min.js"></script> -->
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            .row {
+                display: flex;
+              /*  flex-direction: column; */
+            }
+
+
+            /*                 border:1px solid black;
+                border-radius: 5px; */
+
+            
+            /* Create two equal columns that sits next to each other */
+            .column {
+                flex: 50%;
+                padding: 15px;
+            }
+            
+            .instance {
+                border:1px solid #070707;
+                background-color: cccccc;
+                border-radius: 5px;
+                padding: 15px;
+                display: block;
+                justify-content: center;
+                width: fit-content;
+                max-width: 80%;
+                text-align: left;
+                margin: 0 auto;
+                font-size: 15pt;
+            }
+
+            .instance p {
+                font-weight: bold;
+                display: block;
+            }
+			
+			br {
+			  content: "";
+			  margin: 1em;
+			  display: block;
+			  font-size: 10%;
+			}
+
+            
+            .annotation_schema {
+                padding: 5px;                
+                display: flex;
+                justify-content: center;
+                width: 80%;
+                text-align: left;
+                margin: 0 auto;
+            }
+           
+            
+            fieldset {
+                background-color: #ededed;
+                border:1px solid #160085;
+                background-color: cccccc;
+                padding: 5px 10px 5px 10px;
+            }
+            
+            legend {
+                background-color: #160085;
+                color: white;
+                padding: 2px 2px;
+                font-size: 12pt;
+                font-weight: bold;
+            }
+
+            input[type="text"] {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;  
+                box-sizing: border-box;
+                width: 100%;
+            }
+              
+            input {
+                margin: 5px;
+            }
+
+
+            .likert li {
+                
+                list-style-type: none;
+				display: inline-block;
+            }
+			
+			
+
+
+            /* The sidepanel menu */
+            .sidepanel {
+                min-height: 250px; /* Specify a height */
+                width: 0; /* 0 width - change this with JavaScript */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Stay on top */
+                top: 95px;
+                left: 1px;
+                background-color: #111; /* Black*/
+                overflow-x: hidden; /* Disable horizontal scroll */
+                padding-top: 10px; /* Place content 60px from the top */
+                padding-bottom: 20px;
+                transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+            }
+
+            /* The sidepanel links */
+            .sidepanel a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 55px;
+                color: #ffffff; /* #818181; */
+                display: block;
+                transition: 0.3s;
+            }
+
+            /* When you mouse over the navigation links, change their color */
+            .sidepanel a:hover {
+                color: #f1f1f1;
+            }
+
+            /* When you mouse over the navigation links, change their color */
+            .sidepanel table {
+                color: #ffffff;
+                font-size: 20px;
+                /*padding: 8px 8px 18px 62px;*/
+                margin-left: 20px;
+                margin-top: 10px;
+                border-spacing: 10px;
+            }
+            
+            .sidepanel td, th  {
+                color: #ffffff;
+                padding: 5px;
+            }
+
+            .sidepanel tr:nth-child(even) {
+                background-color: #333333;
+            }
+                        
+            
+            /* Position and style the close button (top right corner) */
+            .sidepanel .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+            /* Style the button that is used to open the sidepanel */
+            .openbtn {
+                cursor: pointer;
+                /*
+                font-size: 20px;                
+                background-color: #111;
+                color: white;
+                padding: 10px 15px;
+                border: none;*/
+            }
+
+            .openbtn:hover {
+                background-color: #444;
+            } 
+
+            /* The instructions */
+            .instructions {
+                /* width: 0; */ /* 0 width - change this with JavaScript */
+                transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+                overflow-y: hidden; /* Disable horizontal scroll */
+                border:1px solid #070707;
+                background-color: cccccc;
+                border-radius: 5px;
+                padding: 15px;
+                display: block;
+                justify-content: center;
+                width: fit-content;
+                max-width: 80%;
+                text-align: left;
+                margin: 0 auto;
+                font-size: 14pt;               
+            }
+
+            
+            /* Position and style the close button (top right corner) */
+            .instructions .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+            /* Style the button that is used to open the sidepanel */
+            .instructions .openbtn {
+                cursor: pointer;
+                /*
+                font-size: 20px;                
+                background-color: #111;
+                color: white;
+                padding: 10px 15px;
+                border: none;*/
+            }
+
+            .span_container {
+              border-width:3px;
+              border-style:solid;
+              border: 2px solid black;
+              position: relative;
+              border-radius: 5px;
+              padding: 2px 5px;
+              background-color: pink;
+            }
+            
+            .span_label {
+            position: absolute;
+            top: -12px;
+            left: 5px;
+            font-size: 7px;
+            padding: 1px 1px;
+            border-radius: 3px;
+            background-color: pink;
+            border: 2px solid red;
+            text-align: center;
+            }            
+            
+        </style>
+    </head>
+
+    
+
 
   <!--- HEADER GOES ABOVE HERE--->
   
@@ -18,12 +263,12 @@
 
     <div id="mySidepanel" class="sidepanel">
       <a href="javascript:void(0)" class="closebtn" target_id="mySidepanel" onclick="closeNav(this.getAttribute('target_id'))">&times;</a>
-      {{keybindings}}
+      <table style="border:1px solid black;margin-left:auto;margin-right:auto;text-align: center;"><tr><td>&nbsp;&nbsp;&#8592;&nbsp;&nbsp;</td></tr><tr><td>&nbsp;&nbsp;Move backward&nbsp;&nbsp;</td></tr></table>
     </div>
 
     <div id="Statpanel" class="sidepanel">
       <a href="javascript:void(0)" class="closebtn" target_id="Statpanel" onclick="closeNav(this.getAttribute('target_id'))">&times;</a>
-      {{statistics_nav}}
+       
     </div>
     
     <script>
@@ -208,25 +453,7 @@
           e.key = "ArrowLeft";
           
           get_new_instance(e);
-      }
-
-      function click_to_leave() {
-        // Display a confirmation dialog
-        var confirmLeave = window.confirm("Are you sure you want to exit the survey?");
-
-        if (confirmLeave) {
-            // If the user confirms, ask if they want to delete their account
-            var confirmDelete = window.confirm("Do you want to delete your account?");
-
-            if (confirmDelete) {
-                // If the user wants to delete, redirect to the delete account page
-                window.location.href = "/delete_account_page";
-            } else {
-                // If the user doesn't want to delete, redirect to the home page or any other page
-                window.location.href = "/";
-            }
-        }
-      }
+      } 
       
     </script>
     
@@ -530,14 +757,14 @@
    
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
       <div class="container-fluid">
-        <a href="#" class="navbar-brand mr-3">{{annotation_task_name}}</a>
+        <a href="#" class="navbar-brand mr-3">Word</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav">
+          <div class="navbar-nav" hidden>
             <a href="#" class="nav-item nav-link active">Home</a>
-            {{annotation_codebook}}
+            
             <a role="button" href="#" class="nav-item nav-link openbtn" target_id="Statpanel" width = "475px" onclick="openNav(this.getAttribute('target_id'),this.getAttribute('width'))">Statistics</a>
             <a role="button" href="#" class="nav-item nav-link openbtn" target_id="mySidepanel" onclick="openNav(this.getAttribute('target_id'))">Help</a>
           </div>
@@ -554,8 +781,8 @@
                 <input type="hidden" name="lastname" id="b" value="{{lastname}}">
                  <input type="hidden" name="email" id="c" value="{{username}}">
                 <input type="hidden" name="src" id="src" value="go_to">
-                <input type="number" name="go_to" id="go_to" value="" onfocusin="user_input()" onfocusout="user_input_leave()" max={{total_count}} min=0 required>
-                <input type="submit" value="go">
+                <input type="number" name="go_to" id="go_to" value="" onfocusin="user_input()" onfocusout="user_input_leave()" max={{total_count}} min=0 required hidden>
+                <input type="submit" value="go" hidden>
               </fieldset>
             </form>
           </div>
@@ -569,7 +796,27 @@
 
       <!--- LAYOUT GOES BELOW HERE --->
 
-      {{ TASK_LAYOUT }}
+      <div class="row">
+  <div class="col-md-3">
+
+       <div name="context_text" class="instance">
+          <div name="instance_text">
+            {{instance | safe}}
+          </div>
+        </div>
+
+    
+    <div style="height: 15px;" />
+    
+  </div>
+  <div class="col-md-9">
+    <div style="flex-direction:column;">
+      <Strong>Thanks for your time, please click the following link to complete the study!<br></Strong> <a href="/delete_account_page">Click to finish the study and go to delete your account.</a><br>
+
+    </div>
+  </div>
+</div>
+
 
       <!--- LAYOUT GOES ABOVE  --->
 
@@ -577,10 +824,7 @@
         <p>
           <div class="text-center">
             <a class="btn btn-secondary" href="#" role="button" onclick="click_to_prev()">Move backward</a>
-            <a class="btn btn-secondary" href="#" role="button" onclick="click_to_next()">Move forward</a>
-          </div>
-          <div class="text-right">
-            <a class="btn btn-secondary" href="#" role="button" onclick="click_to_leave()">Exit Survey</a>
+            <a class="btn btn-secondary" href="#" role="button" onclick="click_to_next()" hidden>Move forward</a>
           </div>
         </p>        
       </div>

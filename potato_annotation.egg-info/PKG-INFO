@@ -7,6 +7,28 @@ Author: Jiaxin Pei
 Author-email: pedropei@umich.edu
 Description-Content-Type: text/markdown
 License-File: LICENSE
+Requires-Dist: beautifulsoup4>=4.10.0
+Requires-Dist: click>=8.0.3
+Requires-Dist: Flask>=2.0.2
+Requires-Dist: itsdangerous>=2.0.1
+Requires-Dist: Jinja2>=3.0.3
+Requires-Dist: joblib>=1.2.0
+Requires-Dist: simpledorff>=0.0.2
+Requires-Dist: MarkupSafe>=2.0.1
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pandas>=1.3.5
+Requires-Dist: python-dateutil>=2.8.2
+Requires-Dist: pytz>=2021.3
+Requires-Dist: PyYAML>=6.0
+Requires-Dist: requests>=2.29.0
+Requires-Dist: scikit-learn>=1.0.2
+Requires-Dist: scipy>=1.7.3
+Requires-Dist: six>=1.16.0
+Requires-Dist: soupsieve>=2.3.1
+Requires-Dist: threadpoolctl>=3.0.0
+Requires-Dist: tqdm>=4.62.3
+Requires-Dist: ujson>=5.4.0
+Requires-Dist: Werkzeug>=2.0.2
 
 # 🥔Potato: the POrtable Text Annotation TOol
  

@@ -187,13 +187,13 @@
           // Gacky code to simulate the submit button as a keyboard event
           // and not have two separate paths to handle keyboard and mouse
           // events
-          var sliders = document.querySelectorAll('input[type="range"]');
-          for (var i = 0; i < sliders.length; ++i) {
-              if (sliders[i].value == -1) {
-                  alert("Please make changes to the slider '" + sliders[i].name + "' before proceeding.");
-                  return false;
-              }
-          }
+          //var sliders = document.querySelectorAll('input[type="range"]');
+          //for (var i = 0; i < sliders.length; ++i) {
+          //    if (sliders[i].value == -1) {
+          //       alert("Please make changes to the slider '" + sliders[i].name + "' before proceeding.");
+          //        return false;
+          //    }
+          //}
           var e = $.Event('keyup');
           e.key = "ArrowRight";
           
@@ -208,7 +208,25 @@
           e.key = "ArrowLeft";
           
           get_new_instance(e);
-      } 
+      }
+
+      function click_to_leave() {
+        // Display a confirmation dialog
+        var confirmLeave = window.confirm("Are you sure you want to exit the survey?");
+
+        if (confirmLeave) {
+            // If the user confirms, ask if they want to delete their account
+            var confirmDelete = window.confirm("Do you want to delete your account?");
+
+            if (confirmDelete) {
+                // If the user wants to delete, redirect to the delete account page
+                window.location.href = "/delete_account_page";
+            } else {
+                // If the user doesn't want to delete, redirect to the home page or any other page
+                window.location.href = "/";
+            }
+        }
+      }
       
     </script>
     
@@ -523,12 +541,13 @@
             <a role="button" href="#" class="nav-item nav-link openbtn" target_id="Statpanel" width = "475px" onclick="openNav(this.getAttribute('target_id'),this.getAttribute('width'))">Statistics</a>
             <a role="button" href="#" class="nav-item nav-link openbtn" target_id="mySidepanel" onclick="openNav(this.getAttribute('target_id'))">Help</a>
           </div>
-          <div class="p-2 bd-highlight text-secondary align-middle">
+          <!--- <div class="p-2 bd-highlight text-secondary align-middle">
             Finished {{finished}}/{{total_count}}
           </div>
           <div class="p-2 bd-highlight text-secondary align-middle">
             Current_id {{instance_id}}
           </div>
+		   --->
           <div class="p-2 bd-highlight text-secondary align-middle">
             <form action="/annotate" method="post">
               <fieldset>
@@ -560,6 +579,9 @@
           <div class="text-center">
             <a class="btn btn-secondary" href="#" role="button" onclick="click_to_prev()">Move backward</a>
             <a class="btn btn-secondary" href="#" role="button" onclick="click_to_next()">Move forward</a>
+          </div>
+          <div class="text-right">
+            <a class="btn btn-secondary" href="#" role="button" onclick="click_to_leave()">Exit Survey</a>
           </div>
         </p>        
       </div>

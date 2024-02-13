@@ -652,7 +652,7 @@ def load_all_data(config):
         # but we need a more elegant way for this in the future
         #page = page.title()
         #print(page)
-        item = {"id": page, "text": page.split("-")[-1][:-5]}
+        item = {"id": page.split("-")[-1][:-5], "text": page.split("-")[-1][:-5]}
         instance_id_to_data.update({page: item})
         instance_id_to_data.move_to_end(page, last=False)
 
@@ -660,7 +660,7 @@ def load_all_data(config):
         for page in config.get(it, []):
             # TODO Currently we simply remove the language type before -,
             # but we need a more elegant way for this in the future
-            item = {"id": page, "text": page.split("-")[-1][:-5]}
+            item = {"id": page.split("-")[-1][:-5], "text": page.split("-")[-1][:-5]}
             instance_id_to_data.update({page: item})
             instance_id_to_data.move_to_end(page, last=False)
 
@@ -1097,9 +1097,9 @@ def home():
             print("url direct logging in with %s=%s" % (url_argument,username))
             return annotate_page(username, action="home")
         print("password logging in")
-        return render_template("home.html", title=config["annotation_task_name"])
+        return render_template("home.html", title=config["annotation_task_name"], show_modal=True)
     print("password logging in")
-    return render_template("home.html", title=config["annotation_task_name"])
+    return render_template("home.html", title=config["annotation_task_name"], show_modal=True)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -1130,13 +1130,13 @@ def login():
             print("%s login successful" % username)
             return annotate_page(username)
         return render_template(
-            "home.html",
+            "login.html",
             title=config["annotation_task_name"],
             login_email=username,
             login_error="Invalid username or password",
         )
-    print("unknown action at home page")
-    return render_template("home.html", title=config["annotation_task_name"])
+    print("unknown action at login page")
+    return render_template("login.html", title=config["annotation_task_name"])
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -1165,24 +1165,25 @@ def signup():
                 title=config["annotation_task_name"],
                 login_email=username,
                 login_error="User registration success for " + username + ", please login now",
+                show_modal=True
             )
         elif result == 'Unauthorized user':
             return render_template(
-                "home.html",
+                "login.html",
                 title=config["annotation_task_name"],
                 login_error=result + ", please contact your admin",
             )
 
         # TODO: return to the signup page and display error message
         return render_template(
-            "home.html",
+            "login.html",
             title=config["annotation_task_name"],
             login_error=result + ", please try again or log in",
         )
 
     print("unknown action at home page")
     return render_template(
-        "home.html",
+        "login.html",
         title=config["annotation_task_name"],
         login_email=username,
         login_error="Invalid username or password",

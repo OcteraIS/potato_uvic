@@ -652,7 +652,7 @@ def load_all_data(config):
         # but we need a more elegant way for this in the future
         #page = page.title()
         #print(page)
-        item = {"id": page, "text": page.split("-")[-1][:-5]}
+        item = {"id": page.split("-")[-1][:-5], "text": page.split("-")[-1][:-5]}
         instance_id_to_data.update({page: item})
         instance_id_to_data.move_to_end(page, last=False)
 
@@ -660,7 +660,7 @@ def load_all_data(config):
         for page in config.get(it, []):
             # TODO Currently we simply remove the language type before -,
             # but we need a more elegant way for this in the future
-            item = {"id": page, "text": page.split("-")[-1][:-5]}
+            item = {"id": page.split("-")[-1][:-5], "text": page.split("-")[-1][:-5]}
             instance_id_to_data.update({page: item})
             instance_id_to_data.move_to_end(page, last=False)
 

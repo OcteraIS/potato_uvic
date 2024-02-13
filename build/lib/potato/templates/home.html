@@ -248,8 +248,60 @@
 
     </script>
 
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <!-- Add your modal box styles here -->
+    <style>
+        /* Add your modal box styles here */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 800px;
+            max-height: 600px;
+            overflow-y: auto;
+            margin: 0 auto;
+        }
+
+        /* Style for the title */
+        .modal-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Style for the title */
+        .modal-content p {
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-family: Verdana, sans-serif;
+        }
+
+        /* Style for the button */
+        .button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>    
   </head>
+
   <body>
     <div class="limiter">
       <div class="container-login100">
@@ -423,6 +475,44 @@
       </div>
     </div>
 
+    <!-- Modal box -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+          <h2>User Study: Interpretation of Topics</h2>
+          <p>
+            We are conducting a user study as part of research toward understanding how people interpret a topic--- a group of words that are likely to be related. For example, one may think of the words "<em>storm, tropical, hurricane, winds, depression, mph, september, damage, cyclone, august, day, season, rainfall</em>" are about "<em>an extreme weather event in August-September</em>". 
+			<br>
+			Different users will likely have different interpretations of these words. We aim to study such different interpretations. This study will help to understand the interplay between human knowledge and human interpretation of topics.
+  			<br><br>
+			We request your participation in this study. The study will take around 45 minutes. We aim to capture your understanding of groups of words pertaining to "Dataset details" from different aspects. 
+  			<br><br>
+			You will receive a compensation of XXX for participating in this study. Once you register and log in to this system, we will provide more details of the study, instructions, and consent.
+ 			<br> 
+			We expect your participation in this study.
+ 			<br>
+			Thank you!
+          </p>
+          
+          <!-- Add your modal box content and buttons here -->
+          <button class="button" onclick="closeModal()">Ok</button>
+      </div>
+    </div>
+
+    <!-- Add your modal box script here -->
+    <script>
+        // Show the modal box when the page is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
+        });
+
+        // Function to close the modal box
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        }
+    </script>
+
     <script src="{{ url_for('static',filename='jquery-3.js') }}"></script>
     <script src="{{ url_for('static',filename='popper.js') }}"></script>
     <script src="{{ url_for('static',filename='bootstrap.js') }}"></script>
@@ -440,6 +530,5 @@
 
     <script src="{{ url_for('static',filename='main.js') }}"></script>
     <!-- <script defer="defer" src="beacon.js" data-cf-beacon="{&quot;rayId&quot;:&quot;661ee9948aa12d64&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2021.5.2&quot;,&quot;si&quot;:10}"></script> -->
-
 
 </body></html>

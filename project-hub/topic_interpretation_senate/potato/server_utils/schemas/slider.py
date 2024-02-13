@@ -30,7 +30,8 @@ def generate_slider_layout(annotation_scheme):
     # Check the values make sense
     min_value = test_and_get("min_value", annotation_scheme)
     max_value = test_and_get("max_value", annotation_scheme)
-    starting_value = test_and_get("starting_value", annotation_scheme)
+    #starting_value = test_and_get("starting_value", annotation_scheme)
+    starting_value = min_value + (max_value - min_value)/2
 
     if min_value >= max_value:
         raise Exception(
@@ -63,20 +64,20 @@ def generate_slider_layout(annotation_scheme):
         + '  <center><span style="flex:1;">{min_label}</span>'
         + '  <input style="position:auto;" type="range" min="{min_value}" max="{max_value}" value="{starting_value}" class="slider" name="{name}" id="{name}" required oninput="updateSliderValue(this)" style="text-align: center;width: 500px;margin:0 auto" validation="required" checked="TRUE">'
         + '  <span style="flex:1;">{max_label}</span>'
-        + '  <right>[<span id="sliderValue_{name}" class="slider" validation="required" type="range"></span>]'
+        #+ '  <right>[<span id="sliderValue_{name}" class="slider" validation="required" type="range"></span>]'
         + '</fieldset>\n</form></div><br/>\n'
-        + '<script>'
-        + '    document.addEventListener("DOMContentLoaded", function() {{'
-        + '        updateSliderValue(document.getElementById("{name}"));'
-        + '    }});'
-        + '    function updateSliderValue(slider) {{'
-        + '        document.getElementById("sliderValue_" + slider.id).innerHTML = slider.value;'
-        + '        slider.addEventListener("input", function() {{'
-        + '            document.getElementById("sliderValue_" + slider.id).innerHTML = slider.value;'
-        + '        }});'
-        + '        console.log(document.getElementById("sliderValue_" + slider.id).innerHTML);'
-        + '    }}'
-        + '</script>'
+        #+ '<script>'
+        #+ '    document.addEventListener("DOMContentLoaded", function() {{'
+        #+ '        updateSliderValue(document.getElementById("{name}"));'
+        #+ '    }});'
+        #+ '    function updateSliderValue(slider) {{'
+        #+ '        document.getElementById("sliderValue_" + slider.id).innerHTML = slider.value;'
+        #+ '        slider.addEventListener("input", function() {{'
+        #+ '            document.getElementById("sliderValue_" + slider.id).innerHTML = slider.value;'
+        #+ '        }});'
+        #+ '        console.log(document.getElementById("sliderValue_" + slider.id).innerHTML);'
+        #+ '    }}'
+        #+ '</script>'
     ).format(description=annotation_scheme["description"],
              min_value=annotation_scheme["min_value"],
              max_value=annotation_scheme["max_value"],

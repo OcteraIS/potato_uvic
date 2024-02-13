@@ -24,6 +24,7 @@ from flask import Flask, render_template, request
 from bs4 import BeautifulSoup
 
 cur_working_dir = os.getcwd() #get the current working dir
+print("cur_working_dir:" + cur_working_dir)
 cur_program_dir = os.path.dirname(os.path.abspath(__file__)) #get the current program dir (for the case of pypi, it will be the path where potato is installed)
 flask_templates_dir = os.path.join(cur_program_dir,'templates') #get the dir where the flask templates are saved
 base_html_dir = os.path.join(cur_program_dir,'base_htmls') #get the dir where the the base_html templates files are saved
@@ -651,7 +652,7 @@ def load_all_data(config):
         # but we need a more elegant way for this in the future
         #page = page.title()
         #print(page)
-        item = {"id": page, "text": page.split("-")[-1][:-5]}
+        item = {"id": page.split("-")[-1][:-5], "text": page.split("-")[-1][:-5]}
         instance_id_to_data.update({page: item})
         instance_id_to_data.move_to_end(page, last=False)
 
@@ -659,7 +660,7 @@ def load_all_data(config):
         for page in config.get(it, []):
             # TODO Currently we simply remove the language type before -,
             # but we need a more elegant way for this in the future
-            item = {"id": page, "text": page.split("-")[-1][:-5]}
+            item = {"id": page.split("-")[-1][:-5], "text": page.split("-")[-1][:-5]}
             instance_id_to_data.update({page: item})
             instance_id_to_data.move_to_end(page, last=False)
 
@@ -1096,9 +1097,9 @@ def home():
             print("url direct logging in with %s=%s" % (url_argument,username))
             return annotate_page(username, action="home")
         print("password logging in")
-        return render_template("home.html", title=config["annotation_task_name"])
+        return render_template("home.html", title=config["annotation_task_name"], show_modal=True)
     print("password logging in")
-    return render_template("home.html", title=config["annotation_task_name"])
+    return render_template("home.html", title=config["annotation_task_name"], show_modal=True)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -1129,13 +1130,13 @@ def login():
             print("%s login successful" % username)
             return annotate_page(username)
         return render_template(
-            "home.html",
+            "login.html",
             title=config["annotation_task_name"],
             login_email=username,
             login_error="Invalid username or password",
         )
-    print("unknown action at home page")
-    return render_template("home.html", title=config["annotation_task_name"])
+    print("unknown action at login page")
+    return render_template("login.html", title=config["annotation_task_name"])
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -1164,29 +1165,63 @@ def signup():
                 title=config["annotation_task_name"],
                 login_email=username,
                 login_error="User registration success for " + username + ", please login now",
+                show_modal=True
             )
         elif result == 'Unauthorized user':
             return render_template(
-                "home.html",
+                "login.html",
                 title=config["annotation_task_name"],
                 login_error=result + ", please contact your admin",
             )
 
         # TODO: return to the signup page and display error message
         return render_template(
-            "home.html",
+            "login.html",
             title=config["annotation_task_name"],
             login_error=result + ", please try again or log in",
         )
 
     print("unknown action at home page")
     return render_template(
-        "home.html",
+        "login.html",
         title=config["annotation_task_name"],
         login_email=username,
         login_error="Invalid username or password",
     )
+    
+@app.route("/delete_account", methods=["POST"])
+def delete_account():
+    global user_config
 
+    username = request.form.get("email")  # Assuming email is used as the username
+    password = request.form.get("pass")   # You should include the password for verification
+
+    if user_config.is_valid_username(username) and user_config.is_valid_password(username, password):
+        # Delete the user from the user_config
+        del user_config.users[username]
+        user_config.userlist.remove(username)
+        user_config.save_user_config()
+
+        return render_template(
+            "home.html",
+            title=config["annotation_task_name"],
+            login_email=username,
+            login_error="Account successfully deleted",
+        )
+    else:
+        return render_template(
+            "deleteAccount.html",
+            title=config["annotation_task_name"],
+            delete_error="Invalid username or password. Account deletion failed.",
+        )
+
+@app.route("/delete_account_page")
+def delete_account_page():
+    return render_template(
+        "deleteAccount.html",
+        title=config["annotation_task_name"],
+        delete_error="Please insert your username or password to delete your account.",
+    )
 
 @app.route("/newuser")
 def new_user():
@@ -2663,7 +2698,7 @@ def run_server(args):
 
     port = args.port or config.get("port", default_port)
     print("running at:\nlocalhost:" + str(port))
-    app.run(debug=False, host="0.0.0.0", port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
 
 
 def main():
