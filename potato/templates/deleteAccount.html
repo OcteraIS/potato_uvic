@@ -120,7 +120,7 @@
     
             var form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("action", "/delete_account");
+            form.setAttribute("action", "/deleteAccount");
     
             var hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");
@@ -137,8 +137,8 @@
             document.body.appendChild(form);
             form.submit();
         } else {
-            // If the user cancels, redirect back to the home page or perform other actions
-            window.location.href = "/";
+            // Cancel
+            window.location.href = "/deleteAccount";
         }
       }    
 
@@ -279,9 +279,9 @@
               </span>
             </div>
             <div class="container-login100-form-btn">
-                <a class="login100-form-btn" onclick="deleteAccount()" role="buttom" href="#deleteAccount">
+                <a class="login100-form-btn" onclick="deleteAccount()" role="buttom">
                     Delete Account
-                </a>
+              </a>
             </div>
             <div class="text-center p-t-12">
               <span class="txt1">
@@ -292,12 +292,12 @@
               </a>
             </div>
             <div class="text-center p-t-12">
-                <a class="txt2" href="#" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
+                <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
                     Login
                     <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                       &nbsp &nbsp &nbsp
                   </a>
-                  <a class="txt2" href="#" onclick="document.getElementById('signup_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
+                  <a class="txt2" href="/signup" onclick="document.getElementById('signup_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
                     Create your Account
                     <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                   </a>
@@ -326,7 +326,7 @@
               </span>
             </div>
             <div class="container-login100-form-btn">
-              <a class="login100-form-btn" onclick="login()" role="buttom" href="#">
+              <a class="login100-form-btn" onclick="login()" role="buttom" href="login">
                 Login
               </a>
             </div>
@@ -339,18 +339,18 @@
               </a>
             </div>
             <div class="text-center p-t-20">
-                <a class="txt2" href="#" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+                <a class="txt2" href="login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
                   Login
                   <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 </a>
                 &nbsp &nbsp &nbsp
-                <a class="txt2" href="#signup" onclick="document.getElementById('login_form').style.display='none';document.getElementById('signup_form').style.display='inline'">
+                <a class="txt2" href="/signup" onclick="document.getElementById('login_form').style.display='none';document.getElementById('signup_form').style.display='inline'">
                   Create your Account
                   <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 </a>
               </div>
               <div class="text-center p-t-20">
-                <a class="txt2" href="#deleteAccount" onclick="document.getElementById('login_form').style.display='none';document.getElementById('delete_account_form').style.display='inline'">
+                <a class="txt2" href="/deleteAccount" onclick="document.getElementById('login_form').style.display='none';document.getElementById('delete_account_form').style.display='inline'">
                   Delete your Account
                   <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 </a>
@@ -394,17 +394,17 @@
               </span>
             </div>
             <div class="container-login100-form-btn">
-              <a class="login100-form-btn" onclick="signup()" role="buttom" href="#signup">
+              <a class="login100-form-btn" onclick="signup()" role="buttom">
                 Sign up
               </a>
             </div>
             <div class="text-center p-t-20">
-              <a class="txt2" href="#" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
                 Login
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 &nbsp &nbsp &nbsp
               </a>
-              <a class="txt2" href="#" onclick="document.getElementById('delete_account_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+              <a class="txt2" href="/deleteAccount" onclick="document.getElementById('delete_account_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
                 Delete Account
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
