@@ -253,12 +253,11 @@ def generate_site(config):
     #
 
     # Swap in the task's layout
-    task_html_layout = task_html_layout.replace("{{topic_id}}", "The most probable words of topic :" + str(100))
     html_template = html_template.replace("{{ TASK_LAYOUT }}", task_html_layout)
     html_template = html_template.replace("{{annotation_codebook}}", codebook_html)
     html_template = html_template.replace(
         "{{annotation_task_name}}", config["annotation_task_name"]
-    )    
+    )
 
     keybindings_desc = generate_keybindings_sidebar(config, all_keybindings)
     html_template = html_template.replace("{{keybindings}}", keybindings_desc)

@@ -1134,9 +1134,10 @@ def login():
             title=config["annotation_task_name"],
             login_email=username,
             login_error="Invalid username or password",
+            show_modal=False
         )
     print("unknown action at login page")
-    return render_template("login.html", title=config["annotation_task_name"])
+    return render_template("login.html", title=config["annotation_task_name"], show_modal=False)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -1161,10 +1162,9 @@ def signup():
         if result == "Success":
             user_config.save_user_config()
             return render_template(
-                "home.html",
+                "login.html",
                 title=config["annotation_task_name"],
                 login_email=username,
-                login_error="User registration success for " + username + ", please login now",
                 show_modal=True
             )
         elif result == 'Unauthorized user':
@@ -1172,6 +1172,7 @@ def signup():
                 "login.html",
                 title=config["annotation_task_name"],
                 login_error=result + ", please contact your admin",
+                show_modal=False
             )
 
         # TODO: return to the signup page and display error message
@@ -1179,49 +1180,81 @@ def signup():
             "login.html",
             title=config["annotation_task_name"],
             login_error=result + ", please try again or log in",
+            show_modal=False
         )
 
-    print("unknown action at home page")
-    return render_template(
-        "login.html",
-        title=config["annotation_task_name"],
-        login_email=username,
-        login_error="Invalid username or password",
-    )
-    
-@app.route("/delete_account", methods=["POST"])
-def delete_account():
+    return render_template("signup.html", title=config["annotation_task_name"], show_modal=True)
+
+@app.route("/deleteAccount", methods=["GET", "POST"])
+def delete_account_page():
     global user_config
 
-    username = request.form.get("email")  # Assuming email is used as the username
-    password = request.form.get("pass")   # You should include the password for verification
+    if request.method == "POST":
+        username = request.form.get("email")  # Assuming email is used as the username
+        password = request.form.get("pass")
 
-    if user_config.is_valid_username(username) and user_config.is_valid_password(username, password):
-        # Delete the user from the user_config
-        del user_config.users[username]
-        user_config.userlist.remove(username)
-        user_config.save_user_config()
+        if user_config.is_valid_username(username) and user_config.is_valid_password(username, password):
+            # Delete the user from the user_config
+            del user_config.users[username]
+            user_config.userlist.remove(username)
+            user_config.save_user_config()
 
-        return render_template(
-            "home.html",
-            title=config["annotation_task_name"],
-            login_email=username,
-            login_error="Account successfully deleted",
-        )
-    else:
-        return render_template(
-            "deleteAccount.html",
-            title=config["annotation_task_name"],
-            delete_error="Invalid username or password. Account deletion failed.",
-        )
+            # Redirect to the home page after successful deletion
+            return render_template(
+                    "home.html",
+                    title=config["annotation_task_name"],
+                    login_email=username,
+                    login_error="Account successfully deleted",
+                    show_modal=False
+                )
+        else:
+            # Redirect back to the delete account page with an error message
+            return render_template(
+                "deleteAccount.html",
+                title=config["annotation_task_name"],
+                delete_error="Invalid username or password. Account deletion failed.",
+                show_modal=False
+            )
 
-@app.route("/delete_account_page")
-def delete_account_page():
-    return render_template(
-        "deleteAccount.html",
-        title=config["annotation_task_name"],
-        delete_error="Please insert your username or password to delete your account.",
-    )
+    return render_template("deleteAccount.html", title=config["annotation_task_name"], delete_error="", show_modal=False)
+    
+# @app.route("/delete_account_page", methods=["POST"])
+# def delete_account():
+#     global user_config
+
+#     username = request.form.get("email")  # Assuming email is used as the username
+#     password = request.form.get("pass")   # You should include the password for verification
+
+#     if user_config.is_valid_username(username) and user_config.is_valid_password(username, password):
+#         # Delete the user from the user_config
+#         del user_config.users[username]
+#         user_config.userlist.remove(username)
+#         user_config.save_user_config()
+
+#         return render_template(
+#             "home.html",
+#             title=config["annotation_task_name"],
+#             login_email=username,
+#             login_error="Account successfully deleted",
+#             show_modal=False
+#         )
+#     else:
+#         return render_template(
+#             "deleteAccount.html",
+#             title=config["annotation_task_name"],
+#             delete_error="Invalid username or password. Account deletion failed.",
+#             show_modal=False
+#         )
+
+# @app.route("/deleteAccount")
+# def delete_account_page():
+#     return render_template(
+#         "deleteAccount.html",
+#         title=config["annotation_task_name"],
+#         delete_error="Please insert your username or password to delete your account.",
+#     )
+
+
 
 @app.route("/newuser")
 def new_user():

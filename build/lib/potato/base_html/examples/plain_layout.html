@@ -2,20 +2,20 @@
   <div class="col-md-3">
               {% if instance_obj.id|int > 3 %}
 <center><strong>The most probable <br> words of topic #{{instance_obj.id}}</strong></center>
-{% else %}
-{% set list1 = instance_obj.id.split('-') %}
-{% set list2 = list1[-1].split('.') %}
-
-<center><strong>{{list2[0]}}</strong></center>
-            {% endif %}
-
-       <div name="context_text" class="instance">	   
+       <!--- <div name="context_text" class="instance" style="position: fixed;">	   --->
+	   <div name="context_text" class="instance">	   
           <div name="instance_text">
             {{instance | safe}}
           </div>
-        </div>
 
-    
+        </div>
+				  {% else %}
+{% set list1 = instance_obj.id.split('-') %}
+{% set list2 = list1[-1].split('.') %}
+
+<center> <h1 style="font-size:2em; "> {{list2[0]}} </h1></center>
+            {% endif %}
+  
     <div style="height: 15px;" />
     
   </div>

@@ -25,7 +25,7 @@
     "annotation_codebook_url": "",
 
     "data_files": [
-        "data_files/SENATE.json"
+        "data_files/SENATE_BOW_SELECT.json"
     ],
     
     "item_properties": {
@@ -58,7 +58,7 @@
       "on": True,
       #"order" : ['pre_annotation', 'prestudy_passed', 'prestudy_failed', 'post_annotation'],
       "order" : ['pre_annotation', 'post_annotation'],
-      "pre_annotation": ['surveyflow/intro.jsonl', 'surveyflow/instruction.jsonl', 'surveyflow/consent.jsonl'],
+      "pre_annotation": ['surveyflow/introduction.jsonl', 'surveyflow/instructions.jsonl', 'surveyflow/demographics.jsonl', 'surveyflow/consent.jsonl'],
       "prestudy_passed": ['surveyflow/prestudy_pass.jsonl'],
       "prestudy_failed": ['surveyflow/prestudy_fail.jsonl'],
      # "post_annotation": ['surveyflow/experience.jsonl', 'surveyflow/end.jsonl'],
@@ -84,7 +84,7 @@
       "on": True,
       "output_filename": 'task_assignment.json',
       "sampling_strategy": 'random',
-      "labels_per_instance": 5,
+      "labels_per_instance": 50,
       "instance_per_annotator": 5,
       "test_question_per_annotator": 0, # you must set up the test question in surveyflow to use this function
 
@@ -98,12 +98,12 @@
     "horizontal_key_bindings": true,
 
     "annotation_schemes": [
-      {
+       {
         "annotation_type": "pure_display",
         "old_description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of 0 to 100, with 0 indicating \"Strong Disagreement\" and 100 indicating \"Strong Agreement\"",
         "description": "In this task, you are presented with the most probable words of a topic (in the left panel of the screen), ordered in the decreased order of their probability. You need to provide how much you agree with each statement below in the context of the topic on a scale of \"Strong Disagreement\" to \"Strong Agreement\"",
         "labels": ""
-      },
+       },
       {
         "annotation_type": "slider",
         "name": "S1",
