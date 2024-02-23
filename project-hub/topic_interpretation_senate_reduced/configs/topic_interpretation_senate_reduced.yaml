@@ -250,7 +250,7 @@
         "annotation_type": "text",
         "name": "Topic_Rationale",
         "label_requirement": { "required": True },
-        "description": "Please provide a detailed rationale behind your inputs (if possible please mention the words that you found important while making the decisions, and explain the situation and context in which these words are likely to be discussed)",
+        "description": "Please provide a detailed rationale behind <strong style=\"color: blue;\">all</strong> of your inputs (if possible, please mention the words that you found important while making the decisions and explain the situation and context in which these words are likely to be discussed)",
         "textarea": {
               "on": True,
               "rows": 5,
@@ -260,7 +260,7 @@
       {
         "annotation_type": "slider",
         "name": "S14",
-        "description": "{{instance_obj.color}} is my favorite color",
+        "description": "Strongly agree with the following statement<br>{{instance_obj.color}} is my favorite color",
         "min_label": "Strongly disagree",
         "max_label": "Strongly agree",
         "label_requirement": { "required": True },
