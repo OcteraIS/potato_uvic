@@ -331,7 +331,7 @@
               </span>
             </div>
             <div class="container-login100-form-btn">
-              <a class="login100-form-btn" onclick="login()" role="buttom" href="#">
+              <a class="login100-form-btn" onclick="login()" role="buttom">
                 Login
               </a>
             </div>
@@ -344,18 +344,18 @@
               </a>
             </div>
             <div class="text-center p-t-20">
-              <a class="txt2" href="#" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
                 Login
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
               &nbsp &nbsp &nbsp
-              <a class="txt2" href="#signup" onclick="document.getElementById('login_form').style.display='none';document.getElementById('signup_form').style.display='inline'">
+              <a class="txt2" href="/signup" onclick="document.getElementById('login_form').style.display='none';document.getElementById('signup_form').style.display='inline'">
                 Create your Account
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
             </div>
             <div class="text-center p-t-20">
-              <a class="txt2" href="#deleteAccount" onclick="document.getElementById('login_form').style.display='none';document.getElementById('delete_account_form').style.display='inline'">
+              <a class="txt2" href="/deleteAccount" onclick="document.getElementById('login_form').style.display='none';document.getElementById('delete_account_form').style.display='inline'">
                 Delete your Account
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
@@ -399,7 +399,7 @@
               </span>
             </div>
             <div class="container-login100-form-btn">
-              <a class="login100-form-btn" onclick="signup()" role="buttom" href="#signup">
+              <a class="login100-form-btn" onclick="signup()" role="buttom">
                 Sign up
               </a>
             </div>
@@ -412,12 +412,12 @@
               </a>
             </div>
             <div class="text-center p-t-20">
-              <a class="txt2" href="#" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
                 Login
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                   &nbsp &nbsp &nbsp
               </a>
-              <a class="txt2" href="#" onclick="document.getElementById('delete_account_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+              <a class="txt2" href="/deleteAccount" onclick="document.getElementById('delete_account_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
                 Delete Account
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
@@ -446,8 +446,8 @@
               </span>
             </div>
             <div class="container-login100-form-btn">
-              <a class="login100-form-btn" onclick="deleteAccount()" role="buttom" href="#deleteAccount">
-                Delete Account
+              <a class="login100-form-btn" onclick="deleteAccount()" role="buttom">
+                    Delete Account
               </a>
             </div>
              <div class="text-center p-t-12">
@@ -459,12 +459,12 @@
               </a>
             </div>
             <div class="text-center p-t-20">
-              <a class="txt2" href="#" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
                 Login
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 &nbsp &nbsp &nbsp
               </a>
-              <a class="txt2" href="#" onclick="document.getElementById('signup_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
+              <a class="txt2" href="/signup" onclick="document.getElementById('signup_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
                 Create your Account
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
@@ -484,11 +484,10 @@
 			<br>
 			Different users will likely have different interpretations of these words. We aim to study such different interpretations. This study will help to understand the interplay between human knowledge and human interpretation of topics.
   			<br><br>
-			We request your participation in this study. The study will take around 45 minutes. We aim to capture your understanding of groups of words pertaining to "Dataset details" from different aspects. 
-  			<br><br>
-			You will receive a compensation of XXX for participating in this study. Once you register and log in to this system, we will provide more details of the study, instructions, and consent.
+			The study will take around 45 minutes.
+			Once you register and log in to this system, we will provide more details of the study, instructions, and consent.
  			<br> 
-			We expect your participation in this study.
+			We welcome your participation in this study.
  			<br>
 			Thank you!
           </p>
@@ -502,8 +501,11 @@
     <script>
         // Show the modal box when the page is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
+          var show_modal = {{ show_modal|tojson|safe }};
+          if (show_modal) {
+              var modal = document.getElementById('myModal');
+              modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
+          }
         });
 
         // Function to close the modal box

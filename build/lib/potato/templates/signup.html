@@ -21,9 +21,11 @@
 
     <script>
       function login() {
-
-          var email = document.getElementById('email').value;
-          var password = document.getElementById('pass').value;
+          if (check_input_fields("login")==false) {
+              return false;
+          }
+          var email = document.getElementById('login_email').value;
+          var password = sha256(document.getElementById('login_pass').value);
 
 
           // Sends the post message to the server which will let us update the
@@ -33,8 +35,20 @@
           var form = document.createElement("form");
           form.setAttribute("method", "post");
           form.setAttribute("action", "login");
+
+          var hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", "src");
+          hiddenField.setAttribute("value", "home");
+          form.appendChild(hiddenField);
           
           var hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", "action");
+          hiddenField.setAttribute("value", "login");
+          form.appendChild(hiddenField);
+
+          hiddenField = document.createElement("input");
           hiddenField.setAttribute("type", "hidden");
           hiddenField.setAttribute("name", "email");
           hiddenField.setAttribute("value", email);
@@ -49,11 +63,245 @@
           document.body.appendChild(form);
           form.submit();
       }
-      
-    </script>
 
+      function signup() {
+          if (check_input_fields("signup")==false) {
+              return false;
+          }
+          var email = document.getElementById('signup_email').value;
+          var password = sha256(document.getElementById('signup_pass').value);
+          //var username = document.getElementById('signup_username').value;
+
+          // Sends the post message to the server which will let us update the
+          // currently displayed content
+          // The rest of this code assumes you are not using a library.
+          // It can be made less wordy if you use one.
+          var form = document.createElement("form");
+          form.setAttribute("method", "post");
+          form.setAttribute("action", "signup");
+
+          var hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", "action");
+          hiddenField.setAttribute("value", "signup");
+          form.appendChild(hiddenField);
+
+          hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", "email");
+          hiddenField.setAttribute("value", email);
+          form.appendChild(hiddenField);
+
+          hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", "pass");
+          hiddenField.setAttribute("value", password);
+          form.appendChild(hiddenField);
+
+          /* Currently we simply use email as the username
+          hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", "username");
+          hiddenField.setAttribute("value", username);
+          form.appendChild(hiddenField);
+           */
+
+          document.body.appendChild(form);
+          form.submit();
+      }
+
+      function deleteAccount() {
+        // Assuming you have a form element with appropriate input fields for confirmation
+        var confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.");
     
+        if (confirmation) {
+            var email = document.getElementById('delete_email').value;  // You might need to adjust this based on your form structure
+            var password = sha256(document.getElementById('delete_pass').value);
+    
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/delete_account");
+    
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "email");
+            hiddenField.setAttribute("value", email);
+            form.appendChild(hiddenField);
+    
+            hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "pass");
+            hiddenField.setAttribute("value", password);
+            form.appendChild(hiddenField);
+    
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            // If the user cancels, redirect back to the home page or perform other actions
+            window.location.href = "/";  // Replace "/" with the desired home page URL
+        }
+    }    
+
+      // check username for registration
+      function validateUsername(str) {
+            var error = "";
+            var illegalChars = /\W/; // allow letters, numbers, and underscores
+
+            if (str == "") {
+                error = "&bull; Please enter Username<br>";
+            } else if ((str.length < 5) || (str.length > 15)) {
+                error = "&bull; Username must have 5-15 characters<br>";
+            } else if (illegalChars.test(str)) {
+            error = "&bull; Please enter valid Username. Use only numbers and alphabets<br>";
+            } else {
+                error = "";
+            }
+            return error;
+        }
+
+      // check all input fields
+      function check_input_fields(action) {
+          var msg_key = action + "_error";
+          if (validateEmail(document.getElementById(action + '_email').value, action) == false) {
+              document.getElementById(action + '_error').innerHTML = "Invalid email address";
+              return false;
+          } else if (validatePassword(document.getElementById(action + '_pass').value, action) == false) {
+              //document.getElementById('signup_error').innerHTML = "Invalid email address";
+              return false;
+          } else if (confirmPassword(action) == false) {
+              return false;
+          }
+          return true;
+      }
+
+      // check email for registration
+      function validateEmail(email, action) {
+          var msg_key = action + "_error";
+         if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+             document.getElementById(msg_key).innerHTML = "";
+            return true;
+          }
+         else{
+             document.getElementById(msg_key).innerHTML = "Invalid email address";
+             return false;
+         }
+        }
+
+      // Depreciated: event function for email textbox
+      function validateEmail_event(e) {
+          if (validateEmail(e.value) == false) {
+              //alert("You have entered an invalid email address!")
+              document.getElementById('signup_error').innerHTML = "Invalid email address";
+          }
+          else{
+              document.getElementById('signup_error').innerHTML = "";
+          }
+      }
+
+      // check password for registration
+    function validatePassword(password, action) {
+          var pw = password //document.getElementById("signup_password").value;
+          var msg_key = action + "_error";
+          //check empty password field
+          if(pw == "") {
+             document.getElementById(msg_key).innerHTML = "Password cannot be empty";
+             return false;
+          }
+
+         //minimum password length validation
+          if(pw.length < 6) {
+             document.getElementById(msg_key).innerHTML = "Password length must be at least 6 characters";
+             return false;
+          }
+
+        //maximum length of password validation
+          if(pw.length > 15) {
+             document.getElementById(msg_key).innerHTML = "Password length must not exceed 15 characters";
+             return false;
+          }
+
+          //if(action == "signup") {
+          //    return confirmPassword(action);
+          //}
+
+          document.getElementById(msg_key).innerHTML = "";
+          return true;
+    }
+
+     // check confirmation password
+    function confirmPassword(action) {
+      if (action == "signup") {
+          var msg_key = action + "_error";
+          var pw1 = document.getElementById("signup_pass").value;
+          var pw2 = document.getElementById("pass_again").value;
+          //alert(pw1)
+          if (pw1 != pw2) {
+              document.getElementById(msg_key).innerHTML = "Password not match";
+              return false;
+          }
+          document.getElementById(msg_key).innerHTML = "";
+          return true;
+      }
+    }
+
+    // Display error message when registration failed
+
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <!-- Add your modal box styles here -->
+    <style>
+        /* Add your modal box styles here */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 800px;
+            max-height: 600px;
+            overflow-y: auto;
+            margin: 0 auto;
+        }
+
+        /* Style for the title */
+        .modal-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Style for the title */
+        .modal-content p {
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-family: Verdana, sans-serif;
+        }
+
+        /* Style for the button */
+        .button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>    
   </head>
+
   <body>
     <div class="limiter">
       <div class="container-login100">
@@ -61,33 +309,40 @@
           <div class="login100-pic js-tilt" data-tilt="" style="will-change: transform; transform: perspective(300px) rotateX(0deg) rotateY(0deg);">
             <img src="{{ url_for('static',filename='img-01.webp') }}" alt="IMG">
           </div>
-          <form class="login100-form validate-form">
+          <form class="login100-form validate-form", id = 'signup_form'>
             <span class="login100-form-title">
               {{title}}
             </span>
               <div class="text-center p-t-0">
-                  <p style="color:red">{{login_error}}</p>
+                  <p style="color:red" id="signup_error">{{signup_error}}</p>
               </div>
             <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-              <input class="input100" type="text" name="email" id="email" placeholder="Email" value = {{ email }}>
+              <input class="input100" type="text" name="email" id="signup_email" placeholder="Email" action = "signup" onblur="validateEmail(this.value, this.getAttribute('action'))" value = "{{ signup_email }}" >
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               </span>
             </div>
             <div class="wrap-input100 validate-input" data-validate="Password is required">
-              <input class="input100" type="password" name="pass" id="pass" placeholder="Password" value = {{ password }}>
+              <input class="input100" type="password" name="pass" id="signup_pass" placeholder="Password" action = "signup" onblur="validatePassword(this.value, this.getAttribute('action'))" value = "{{ signup_password }}">
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+              </span>
+            </div>
+             <div class="wrap-input100 validate-input" data-validate="Password is required">
+              <input class="input100" type="password" name="pass" id="pass_again" placeholder="Re-enter password" action = "signup" onblur="confirmPassword(this.getAttribute('action'))">
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-lock" aria-hidden="true"></i>
               </span>
             </div>
             <div class="container-login100-form-btn">
-              <a class="login100-form-btn" onclick="login()" role="buttom" href="#">
-                Login
+              <a class="login100-form-btn" onclick="signup()" role="buttom">
+                Sign up
               </a>
             </div>
-            <div class="text-center p-t-12">
+             <div class="text-center p-t-12">
               <span class="txt1">
                 Forgot
               </span>
@@ -95,22 +350,170 @@
                 Username / Password?
               </a>
             </div>
-            <div class="text-center p-t-136">
+            <div class="text-center p-t-20">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+                Login
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                  &nbsp &nbsp &nbsp
+              </a>
+              <a class="txt2" href="/deleteAccount" onclick="document.getElementById('delete_account_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+                Delete Account
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+              </a>
+            </div>
+          </form>
+          
+          <form class="login100-form validate-form", id = 'login_form', style="display:none">
+            <span class="login100-form-title">
+              {{title}}
+            </span>
+              <div class="text-center p-t-0">
+                  <p style="color:red", id="login_error">{{login_error}}</p>
+              </div>
+            <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+              <input class="input100" type="text" name="email" id="login_email" placeholder="Email" value = "{{ login_email }}">
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="wrap-input100 validate-input" data-validate="Password is required">
+              <input class="input100" type="password" name="pass" id="login_pass" placeholder="Password" value = "{{ login_password }}">
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="container-login100-form-btn">
+              <a class="login100-form-btn" onclick="login()" role="buttom">
+                Login
+              </a>
+            </div>
+              <div class="text-center p-t-12">
+              <span class="txt1">
+                Forgot
+              </span>
               <a class="txt2" href="#">
+                Username / Password?
+              </a>
+            </div>
+            <div class="text-center p-t-20">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('signup_form').style.display='none'">
+                Login
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+              </a>
+              &nbsp &nbsp &nbsp
+              <a class="txt2" href="/signup" onclick="document.getElementById('login_form').style.display='none';document.getElementById('signup_form').style.display='inline'">
+                Create your Account
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="text-center p-t-20">
+              <a class="txt2" href="/deleteAccount" onclick="document.getElementById('login_form').style.display='none';document.getElementById('delete_account_form').style.display='inline'">
+                Delete your Account
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+              </a>
+            </div>
+          </form>
+
+          <form class="login100-form validate-form", id = 'delete_account_form', style="display:none">
+            <span class="login100-form-title">
+              {{title}}
+            </span>
+              <div class="text-center p-t-0">
+                  <p style="color:red" id="delete_error">{{delete_error}}</p>
+              </div>
+            <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+              <input class="input100" type="text" name="email" id="delete_email" placeholder="Email" value = "{{ delete_email }}">
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="wrap-input100 validate-input" data-validate="Password is required">
+              <input class="input100" type="password" name="pass" id="delete_pass" placeholder="Password" value = "{{ delete_password }}">
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="container-login100-form-btn">
+              <a class="login100-form-btn" onclick="deleteAccount()" role="buttom">
+                    Delete Account
+              </a>
+            </div>
+             <div class="text-center p-t-12">
+              <span class="txt1">
+                Forgot
+              </span>
+              <a class="txt2" href="#">
+                Username / Password?
+              </a>
+            </div>
+            <div class="text-center p-t-20">
+              <a class="txt2" href="/login" onclick="document.getElementById('login_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
+                Login
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                &nbsp &nbsp &nbsp
+              </a>
+              <a class="txt2" href="/signup" onclick="document.getElementById('signup_form').style.display='inline';document.getElementById('delete_account_form').style.display='none'">
                 Create your Account
                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
               </a>
             </div>
           </form>
+
         </div>
       </div>
     </div>
+
+    <!-- Modal box -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+          <h2>User Study: Interpretation of Topics</h2>
+          <p>
+            We are conducting a user study as part of research toward understanding how people interpret a topic--- a group of words that are likely to be related. For example, one may think of the words "<em>storm, tropical, hurricane, winds, depression, mph, september, damage, cyclone, august, day, season, rainfall</em>" are about "<em>an extreme weather event in August-September</em>". 
+			<br>
+			Different users will likely have different interpretations of these words. We aim to study such different interpretations. This study will help to understand the interplay between human knowledge and human interpretation of topics.
+  			<br><br>
+			We request your participation in this study. The study will take around 45 minutes. We aim to capture your understanding of groups of words pertaining to "Dataset details" from different aspects. 
+  			<br><br>
+			You will receive a compensation of XXX for participating in this study. Once you register and log in to this system, we will provide more details of the study, instructions, and consent.
+ 			<br> 
+			We expect your participation in this study.
+ 			<br>
+			Thank you!
+          </p>
+          
+          <!-- Add your modal box content and buttons here -->
+          <button class="button" onclick="closeModal()">Ok</button>
+      </div>
+    </div>
+
+    <!-- Add your modal box script here -->
+    <script>
+        // Show the modal box when the page is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            var show_modal = {{ show_modal|tojson|safe }};
+            if (show_modal) {
+                var modal = document.getElementById('myModal');
+                modal.style.display = 'flex'; // Change to 'block' if using a non-flex container
+            }
+        });
+
+        // Function to close the modal box
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        }
+    </script>
 
     <script src="{{ url_for('static',filename='jquery-3.js') }}"></script>
     <script src="{{ url_for('static',filename='popper.js') }}"></script>
     <script src="{{ url_for('static',filename='bootstrap.js') }}"></script>
     <script src="{{ url_for('static',filename='select2.js') }}"></script>
     <script src="{{ url_for('static',filename='tilt.js') }}"></script>
+    <script src="{{ url_for('static',filename='sha256.js') }}"></script>
     
     <script>
       $('.js-tilt').tilt({
@@ -122,6 +525,5 @@
 
     <script src="{{ url_for('static',filename='main.js') }}"></script>
     <!-- <script defer="defer" src="beacon.js" data-cf-beacon="{&quot;rayId&quot;:&quot;661ee9948aa12d64&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2021.5.2&quot;,&quot;si&quot;:10}"></script> -->
-
 
 </body></html>
