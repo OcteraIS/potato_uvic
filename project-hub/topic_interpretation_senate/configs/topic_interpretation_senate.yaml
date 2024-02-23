@@ -303,13 +303,26 @@
         "annotation_type": "text",
         "name": "Topic_Rationale",
         "label_requirement": { "required": True },
-        "description": "Please provide a detailed rationale behind your inputs (if possible please mention the words that you found important while making the decisions, and explain the situation and context in which these words are likely to be discussed)",
+        "description": "Please provide a detailed rationale behind <strong style=\"color: blue;\">all</strong> of your inputs (if possible, please mention the words that you found important while making the decisions and explain the situation and context in which these words are likely to be discussed)",
         "textarea": {
               "on": True,
-              "rows": 7,
-              "cols": 75
+              "rows": 5,
+              "cols": 150
         }
-      }      
+      },
+      {
+        "annotation_type": "slider",
+        "name": "S14",
+        "description": "Strongly agree with the following statement<br>{{instance_obj.color}} is my favorite color",
+        "min_label": "Strongly disagree",
+        "max_label": "Strongly agree",
+        "label_requirement": { "required": True },
+        "size": 5,
+        "min_value": -1,
+        "max_value": 100,
+        "starting_value": 50,
+        "sequential_key_binding": True,
+      }
     ],
     # The html that changes the visualiztation for your task. Change this file
     # to influence the layout and description of your task. This is not a full

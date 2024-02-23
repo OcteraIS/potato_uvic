@@ -1,0 +1,2 @@
+{"id":"1","text":"How satisfied do you feel about your experience participating our study?<br>","schema": "radio", "choices": ["Not satisfied", "Satisfied", "Very satisfied"], "label_requirement": {"required":true}}
+{"id":"2","text":"Please feel free to leave any comments about our study<br>","schema": "text"}
