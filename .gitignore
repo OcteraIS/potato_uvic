@@ -1,3 +1,7 @@
-__pycache__/
-
 potato/server_utils/schemas/__pycache__/*
+
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore __pycache__ directories
+__pycache__/
