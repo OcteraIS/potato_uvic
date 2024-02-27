@@ -1,1 +1,1 @@
-{"id":"1","text":"Thanks for your time, please click the following link to complete the study!<br>","schema": "pure_display", "choices": ["<a href=\"/delete_account_page\">Click to finish the study and go to delete your account.</a>"]}
+{"id":"1","text":"Thanks for your time, please click the following link to complete the study!<br>","schema": "pure_display", "choices": ["<a href=\"/\">Click to finish the study.</a>"]}
